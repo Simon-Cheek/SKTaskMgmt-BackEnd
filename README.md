@@ -4,6 +4,10 @@ Python Backend for SimonChaela Task Mgmt. Built using Django.
 PYTHON VERSION: 3.13.7
 
 ---
+To Update Requirements.txt:
+pip freeze > requirements.txt
+
+---
 Steps to Run:
 # 1. Create and activate virtual environment
 python -m venv venv
