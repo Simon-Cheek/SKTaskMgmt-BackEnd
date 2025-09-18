@@ -7,6 +7,10 @@ PYTHON VERSION: 3.13.7
 To Update Requirements.txt:
 pip freeze > requirements.txt
 
+To Run DB Migrations:
+python manage.py makemigrations
+python manage.py migrate
+
 ---
 Steps to Run:
 # 1. Create and activate virtual environment
