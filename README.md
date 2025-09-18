@@ -13,19 +13,19 @@ python manage.py migrate
 
 ---
 Steps to Run:
-# 1. Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate   # (Linux/Mac)
-# .\venv\Scripts\activate  # (Windows PowerShell)
+1. Create and activate virtual environment
+    - python -m venv venv
+    - source venv/bin/activate (Linux/Mac)
+    - .\venv\Scripts\activate (Windows PowerShell)
 
-# 2. Install dependencies
-pip install -r requirements.txt
+2. Install dependencies
+   - pip install -r requirements.txt
 
-# 3. Run migrations (sets up the database)
-python manage.py migrate
+3. Run migrations (sets up the database)
+   - python manage.py migrate
 
-# 4. Start the development server
-python manage.py runserver
+4. Start the development server
+    - python manage.py runserver
 
-# 5. When finished
-deactivate
+5. When finished
+    - deactivate
