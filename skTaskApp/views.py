@@ -1,6 +1,8 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.request import Request
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from .models import Task
 from .serializers import TaskSerializer
@@ -22,3 +24,11 @@ class TaskViewSet(viewsets.ModelViewSet):
                 raise ValidationError("Invalid Query Param Status")
             query_set = query_set.filter(status=status)
         return query_set
+
+    @action(detail=False, methods=["get"])
+    def get_archived(self, request):
+        archived_tasks = Task.objects.filter(
+            status__in=[Task.Status.EXPIRED, Task.Status.COMPLETE]
+        )
+        serializer = self.get_serializer(archived_tasks, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
