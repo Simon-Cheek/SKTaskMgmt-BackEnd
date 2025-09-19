@@ -21,7 +21,10 @@ class TaskViewSet(viewsets.ModelViewSet):
         # Filter on Status Directly
         if status:
             if status not in Task.Status.values:
-                raise ValidationError("Invalid Query Param Status")
+                raise ValidationError({
+                    "status": f"Invalid status '{status}'. Must be one of {list(Task.Status.values)}"
+                })
+
             query_set = query_set.filter(status=status)
         return query_set
 
