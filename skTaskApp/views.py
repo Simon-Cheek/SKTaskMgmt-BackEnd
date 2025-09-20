@@ -19,7 +19,6 @@ class TaskViewSet(viewsets.ModelViewSet):
         query_set = Task.objects.all()
         request: Request = self.request # Ignore IDE TypeError
         status = request.query_params.get("status")
-
         # Filter on Status Directly
         if status:
             if status not in Task.Status.values:
@@ -29,12 +28,6 @@ class TaskViewSet(viewsets.ModelViewSet):
 
             query_set = query_set.filter(status=status)
         return query_set
-
-    # Disable Default PUT method on ModelViewSet
-    def update(self, request, *args, **kwargs):
-        return Response(
-            status=status.HTTP_405_METHOD_NOT_ALLOWED,
-        )
 
     # Disable Default PATCH method on ModelViewSet
     def partial_update(self, request, *args, **kwargs):
