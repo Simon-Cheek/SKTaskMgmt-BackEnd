@@ -14,6 +14,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
+    # Query Handling for Search Params
     def get_queryset(self):
         query_set = Task.objects.all()
         request: Request = self.request # Ignore IDE TypeError
@@ -29,6 +30,18 @@ class TaskViewSet(viewsets.ModelViewSet):
             query_set = query_set.filter(status=status)
         return query_set
 
+    # Disable Default PUT method on ModelViewSet
+    def update(self, request, *args, **kwargs):
+        return Response(
+            status=status.HTTP_405_METHOD_NOT_ALLOWED,
+        )
+
+    # Disable Default PATCH method on ModelViewSet
+    def partial_update(self, request, *args, **kwargs):
+        return Response(
+            status=status.HTTP_405_METHOD_NOT_ALLOWED,
+        )
+
     # Fetches all tasks that have been archived
     # Fetching non archived tasks can be done by filtering on "Active" status
     # /archived
@@ -43,7 +56,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     # Marks a given task as complete
     # /{id}/complete
     @action(detail=True, methods=["put"], url_path="complete")
-    def mark_as_complete(self, request):
+    def mark_as_complete(self, request, pk=None):
         task = self.get_object()
         task.status = Task.Status.COMPLETE
         task.save()
