@@ -3,12 +3,9 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.request import Request
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK
 
 from .models import Task
 from .serializers import TaskSerializer
-
-# Create your views here.
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
