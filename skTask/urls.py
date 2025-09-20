@@ -17,5 +17,7 @@ Including another URLconf
 from django.urls import path, include
 
 urlpatterns = [
-    path("tasks/", include("skTaskApp.urls"))
+    path("tasks/", include("skTaskApp.urls")),
+    path("auth/", include("skAuthApp.urls")),
+    path("users/", include("skUserApp.urls"))
 ]

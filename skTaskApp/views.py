@@ -1,5 +1,6 @@
 from rest_framework import viewsets, status
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -10,6 +11,7 @@ from .serializers import TaskSerializer
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
 
     # Query Handling for Search Params
     def get_queryset(self):

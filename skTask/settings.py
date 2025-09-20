@@ -32,14 +32,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'skTaskApp',
+    'skAuthApp',
+    'skUserApp',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'skTaskApp',
-    'rest_framework'
+    'django.contrib.staticfiles'
 ]
 
 MIDDLEWARE = [
@@ -85,6 +87,20 @@ DATABASES = {
         'PORT': config('DB_PORT', default='3306'),
     }
 }
+
+# Configures ALL API Endpoints to require JWT Authentication
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}
+AUTH_USER_MODEL = "skUserApp.User"
+
+
 
 
 # Password validation
