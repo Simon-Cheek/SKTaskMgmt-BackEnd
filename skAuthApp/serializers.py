@@ -26,7 +26,7 @@ class UserTokenRefreshSerializer(TokenRefreshSerializer):
 
         # Decode the refresh token to get user ID
         refresh = RefreshToken(attrs['refresh'])
-        user_id = refresh.access_token['user_id']  # comes from the token payload
+        user_id = refresh.payload['user_id']
 
         # Fetch full user object to include in response
         u = User.objects.get(id=user_id)
