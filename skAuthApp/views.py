@@ -1,4 +1,5 @@
 # views.py
+from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.response import Response
 from rest_framework import status
@@ -33,7 +34,24 @@ class UserTokenObtainPairView(TokenObtainPairView):
 class UserTokenRefreshView(TokenRefreshView):
     serializer_class = UserTokenRefreshSerializer
 
+    def post(self, request, *args, **kwargs):
+        data = request.data.copy()  # make mutable copy
+
+        if "refresh" not in data:
+            refresh_token = request.COOKIES.get("refresh")
+            if not refresh_token:
+                return Response({"detail": "No refresh token"}, status=400)
+            data["refresh"] = refresh_token
+
+        # Re-wrap the request with the modified data
+        request._full_data = data
+
+        # Now just let the parent view do its thing
+        return super().post(request, *args, **kwargs)
+
 class LogoutView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request):
         response = Response(status=status.HTTP_204_NO_CONTENT)
         response.delete_cookie(
