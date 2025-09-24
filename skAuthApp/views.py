@@ -38,7 +38,7 @@ class UserTokenRefreshView(TokenRefreshView):
         data = request.data.copy()  # make mutable copy
 
         if "refresh" not in data:
-            refresh_token = request.COOKIES.get("refresh")
+            refresh_token = request.COOKIES.get(REFRESH_TOKEN_COOKIE)
             if not refresh_token:
                 return Response({"detail": "No refresh token"}, status=400)
             data["refresh"] = refresh_token
