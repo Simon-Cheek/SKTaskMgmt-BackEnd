@@ -37,7 +37,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     # Fetches all tasks that have been archived
     # Fetching non archived tasks can be done by filtering on "Active" status
     # /archived
-    @action(detail=False, methods=["get"])
+    @action(detail=False, methods=["get"], url_path="archived")
     def get_archived(self, request):
         archived_tasks = Task.objects.filter(
             status__in=[Task.Status.EXPIRED, Task.Status.COMPLETE]

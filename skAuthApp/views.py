@@ -22,9 +22,9 @@ class UserTokenObtainPairView(TokenObtainPairView):
                 key=REFRESH_TOKEN_COOKIE,
                 value=refresh,
                 httponly=True,
-                secure=True,       # True in production (HTTPS only)
-                samesite="Lax",    # Or "Strict" if you prefer
-                max_age=7*24*60*60 # match token lifetime, e.g. 7 days
+                secure=True,
+                samesite="Lax",
+                max_age=7*24*60*60
             )
             # Optionally remove from response body
             del data["refresh"]
