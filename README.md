@@ -29,3 +29,6 @@ Steps to Run:
 
 5. When finished
     - deactivate
+
+TODO:
+- Secure Refresh Cookie in proper manner for deployment
